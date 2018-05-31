@@ -48,16 +48,16 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        StringBuffer sb = new StringBuffer();
+        StringBuffer buff = new StringBuffer();
         while(res.moveToNext()) {
 
             for (int i = 0; i < 4; i++) {
-                sb.append(res.getColumnName(i) + ": " + res.getString(i) + "\n");
+                buff.append(res.getColumnName(i) + ": " + res.getString(i) + "\n");
             }
-            sb.append("\n");
+            buff.append("\n");
         }
         Log.d("MyContactApp", "MainActivity: viewData: assembled stringbuffer");
-        showMessage("Data", sb.toString());
+        showMessage("Data", buff.toString());
     }
 
     private void showMessage(String title, String message) {
@@ -74,22 +74,22 @@ public class MainActivity extends AppCompatActivity {
     public void SearchRecord(View view) {
        Log.d("MyContactApp", "MainActivity: launching my SearchActivity");
        Intent intent = new Intent(this, SearchActivity.class);
-       intent.putExtra(EXTRA_MESSAGE, getRecords());
+       intent.putExtra(EXTRA_MESSAGE, otherRecords());
        startActivity(intent);
 
     }
 
-    private String getRecords() {
+    public String otherRecords() {
         Cursor res = myDb.getAllData();
-        Log.d("MyContactApp", "MainActivity: getRecords: received cursor");
-        StringBuffer sb = new StringBuffer();
+        Log.d("MyContactApp", "MainActivity: otherRecords: received cursor");
+        StringBuffer buff = new StringBuffer();
         int contacts = 0;
         while (res.moveToNext()) {
             if (res.getString(1).equals(editName.getText().toString())) {
                 for (int i = 1; i < 4; i++) {
-                    sb.append(res.getColumnName(i) + ": " + res.getString(i) + "\n");
+                    buff.append(res.getColumnName(i) + ": " + res.getString(i) + "\n");
                 }
-                sb.append("\n");
+                buff.append("\n");
                 contacts++;
             }
         }
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             return "No contact was found :(";
             }
             else {
-            return sb.toString();
+            return buff.toString();
             }
     }
 }
