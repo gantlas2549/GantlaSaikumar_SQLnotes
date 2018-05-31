@@ -16,11 +16,8 @@ public class SearchActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
-
         //Capture the layout's textView and set the string as the text
         TextView textView = findViewById(R.id.textView2);
         textView.setText(message);
-
-
     }
 }
